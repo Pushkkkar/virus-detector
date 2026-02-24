@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scan Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">🛡 CyberShield</div>
+    <a href="/">Scan Again</a>
+</div>
+
+<div class="container">
+    <div class="card">
+
+        <h3 class="
+        {% if result.risk >= 50 %}
+        high
+        {% elif result.risk > 0 %}
+        medium
+        {% else %}
+        safe
+        {% endif %}
+        ">
+        {{ result.level }}
+        </h3>
+
+        <div class="circle">
+            <span>{{ result.risk }}%</span>
+        </div>
+
+        <p><strong>Threat Indicators:</strong> {{ result.score }}</p>
+        <p><strong>SHA256:</strong></p>
+        <small>{{ result.hash }}</small>
+
+    </div>
+</div>
+
+</body>
+</html>

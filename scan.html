@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CyberShield Scanner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">🛡 CyberShield</div>
+</div>
+
+<div class="container">
+    <div class="card">
+
+        <h2 id="typing"></h2>
+
+        <form method="POST" enctype="multipart/form-data" onsubmit="showLoader()">
+            <input type="file" name="file" required>
+            <button type="submit">Initiate Scan</button>
+        </form>
+
+        <div id="loader" class="loader hidden"></div>
+
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='loader.js') }}"></script>
+
+<script>
+// Loader animation
+function showLoader() {
+    document.getElementById("loader").classList.remove("hidden");
+}
+
+// Typing effect
+const text = "Initializing Cyber Threat Scan...";
+let i = 0;
+function typeEffect() {
+    if (i < text.length) {
+        document.getElementById("typing").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeEffect, 50);
+    }
+}
+typeEffect();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CyberShield - Intelligent Virus Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div id="particles-js"></div>
+
+<div class="navbar">
+    <div class="logo">🛡 CyberShield</div>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/scan">Scan</a>
+    </div>
+</div>
+
+<div class="hero">
+    <h1>Intelligent Malware Detection</h1>
+    <p>AI-Powered Hybrid Threat Analysis System</p>
+    <a href="/scan" class="btn">Start Secure Scan</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<script>
+particlesJS("particles-js", {
+  "particles": {
+    "number": { "value": 80 },
+    "color": { "value": "#00ffcc" },
+    "shape": { "type": "circle" },
+    "opacity": { "value": 0.5 },
+    "size": { "value": 3 },
+    "line_linked": {
+      "enable": true,
+      "distance": 150,
+      "color": "#00ffcc",
+      "opacity": 0.4,
+      "width": 1
+    },
+    "move": {
+      "enable": true,
+      "speed": 2
+    }
+  }
+});
+</script>
+
+</body>
+</html>
