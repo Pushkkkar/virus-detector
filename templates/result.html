@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scan Result #{{ scan_run.id }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <header>
+        <h1>Scan Result #{{ scan_run.id }}</h1>
+        <a href="{{ url_for('home') }}">← Back to dashboard</a>
+    </header>
+
+    <section class="card full">
+        <h2>Summary</h2>
+        <p><strong>Target Type:</strong> {{ scan_run.target_type }}</p>
+        <p><strong>Target Path:</strong> {{ scan_run.target_path }}</p>
+        <p><strong>Scanned At:</strong> {{ scan_run.scanned_at }} UTC</p>
+        <p><strong>Files Scanned:</strong> {{ scan_run.files_scanned }}</p>
+        <p><strong>Infected Files:</strong> {{ scan_run.infected_files }}</p>
+    </section>
+
+    <section class="card full">
+        <h2>File-level Detection Details</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>File Path</th>
+                    <th>Status</th>
+                    <th>Detected Virus</th>
+                    <th>SHA256</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in detections %}
+                <tr>
+                    <td>{{ row.file_path }}</td>
+                    <td>{{ row.detection_level }}</td>
+                    <td>{{ row.detected_signatures or 'None' }}</td>
+                    <td><code>{{ row.file_hash }}</code></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>
