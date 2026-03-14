@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CyberShield Advanced Virus Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <header>
+        <h1>🛡 CyberShield Advanced Virus Detector</h1>
+        <p>Scan files/folders, store virus intelligence in a database, and auto-monitor critical folders.</p>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <section class="alerts">
+        {% for category, message in messages %}
+            <div class="alert {{ category }}">{{ message }}</div>
+        {% endfor %}
+    </section>
+    {% endif %}
+    {% endwith %}
+
+    <main class="grid">
+        <section class="card">
+            <h2>Scan Single File</h2>
+            <form action="{{ url_for('scan_file_route') }}" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" required />
+                <button type="submit">Scan File</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Scan Folder</h2>
+            <form action="{{ url_for('scan_folder_route') }}" method="POST">
+                <input type="text" name="folder_path" placeholder="/path/to/folder" required />
+                <button type="submit">Scan Folder</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Automatic Detection (Folder Monitor)</h2>
+            <p>Status: <strong>{{ monitor_state.status }}</strong></p>
+            <p>Current folder: <code>{{ monitor_state.folder or 'N/A' }}</code></p>
+            <form action="{{ url_for('start_monitor') }}" method="POST" class="inline-form">
+                <input type="text" name="monitor_folder_path" placeholder="/path/to/folder" required />
+                <input type="number" name="interval" min="5" value="20" required />
+                <button type="submit">Start Auto Monitor</button>
+            </form>
+            <form action="{{ url_for('stop_monitor') }}" method="POST">
+                <button type="submit" class="secondary">Stop Monitor</button>
+            </form>
+        </section>
+    </main>
+
+    <section class="card full">
+        <h2>Virus Database (Known Signatures + Fix Instructions)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>How to Fix</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for signature in signatures %}
+                <tr>
+                    <td>{{ signature.name }}</td>
+                    <td>{{ signature.signature_type }}</td>
+                    <td>{{ signature.description }}</td>
+                    <td>{{ signature.fix_instructions }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="card full">
+        <h2>Recent Scan Runs</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Target</th>
+                    <th>Scanned At (UTC)</th>
+                    <th>Files Scanned</th>
+                    <th>Infected Files</th>
+                    <th>Open</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for run in recent_scans %}
+                <tr>
+                    <td>{{ run.id }}</td>
+                    <td>{{ run.target_type }}: {{ run.target_path }}</td>
+                    <td>{{ run.scanned_at }}</td>
+                    <td>{{ run.files_scanned }}</td>
+                    <td>{{ run.infected_files }}</td>
+                    <td><a href="{{ url_for('scan_result', scan_run_id=run.id) }}">View Result</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="card full">
+        <h2>Recent Detections</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Scan ID</th>
+                    <th>File</th>
+                    <th>Status</th>
+                    <th>Detected Virus</th>
+                    <th>Timestamp (UTC)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for detection in recent_detections %}
+                <tr>
+                    <td>{{ detection.scan_run_id }}</td>
+                    <td>{{ detection.file_path }}</td>
+                    <td>{{ detection.detection_level }}</td>
+                    <td>{{ detection.detected_signatures or 'None' }}</td>
+                    <td>{{ detection.scanned_at }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>

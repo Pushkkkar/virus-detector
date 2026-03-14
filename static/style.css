@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0e1525;
+    color: #e8ecf4;
+}
+
+header {
+    padding: 20px;
+    background: #131d31;
+    border-bottom: 1px solid #24324f;
+}
+
+header h1 {
+    margin: 0 0 8px;
+}
+
+a {
+    color: #59d1ff;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    padding: 16px;
+}
+
+.card {
+    background: #17233b;
+    border: 1px solid #293b61;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+.full {
+    margin: 16px;
+}
+
+input, button {
+    width: 100%;
+    margin-top: 8px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #31456f;
+    background: #0d172a;
+    color: #e8ecf4;
+}
+
+button {
+    cursor: pointer;
+    background: #1c7ed6;
+    border: none;
+    font-weight: 700;
+}
+
+button.secondary {
+    background: #6c757d;
+}
+
+.inline-form {
+    display: grid;
+    grid-template-columns: 1fr 100px;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.alerts {
+    padding: 0 16px;
+}
+
+.alert {
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.alert.error {
+    background: #6f1d1b;
+}
+
+.alert.success {
+    background: #2b8a3e;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+th,
+td {
+    border: 1px solid #2e4168;
+    padding: 8px;
+    text-align: left;
+    vertical-align: top;
+}
+
+code {
+    word-break: break-all;
+}
